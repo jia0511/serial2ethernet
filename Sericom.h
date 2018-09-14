@@ -1,0 +1,44 @@
+/******************************************************************
+** 文件名:sericom.h
+** Copyright (c) 1996-2014通号万全信号设备公司技术工程技术事业部
+** 作者:jiajunjie
+** 日 期:November 1, 2014
+** 内容:本代码为配置串口通用性代码
+** 函数模块:通信模块	
+** 版 本:v1.0
+** 修改情况
+2014年11月1日  本代码为配置串口代码
+******************************************************************/
+#ifndef SERICOM_H
+#define SERICOM_H
+
+#include <stdio.h>  
+#include <fcntl.h>  
+#include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <string.h> 
+#include <sys/times.h>
+#include <sys/types.h>
+#include <signal.h> 
+                                                                                                                                                                                  
+#include <sys/ioctl.h>
+#include <sys/stat.h> 
+#include <signal.h>
+#include <math.h>  
+#include <errno.h> 
+#include <sys/time.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <termios.h>
+
+
+
+#define  BUFF_SIZE 1024
+#define  MAX_COM_NUM 2
+
+int open_port(int com_port);
+int set_com_config(int fd,int baud_rate,int data_bits,char parity,int stop_bits);
+
+
+#endif
