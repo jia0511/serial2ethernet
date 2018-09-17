@@ -1,18 +1,15 @@
-
 #include "Sericom.h"
 
 
-
-int open_port(int com_port)
+int open_port(char *dev)
 {
 	int fd;
-    char *dev[] = {"/dev/ttyS0"};
-	if( (com_port < 0) || (com_port > MAX_COM_NUM) ) 
+	if( NULL == dev ) 
 	{
 		return -1;
 	}
 	//打开串口
-	fd = open(dev[com_port -1], O_RDWR|O_NOCTTY|O_NDELAY);
+	fd = open(dev, O_RDWR|O_NOCTTY|O_NDELAY);
 	if ( fd <0 )
 	{
 		perror("open serial port");

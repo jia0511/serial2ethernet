@@ -6,8 +6,8 @@ void OutPutRoadDirection(void)
 {
 	while (1)
 	{
-		SendtoRoad(Direction, 2);
-		sleep(1);
+		//SendtoServer(Direction, 2);
+		usleep(1000*100);
 	}
 }
 

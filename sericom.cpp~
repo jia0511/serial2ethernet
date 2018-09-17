@@ -1,12 +1,10 @@
-
 #include "Sericom.h"
 
 
-
-int open_port(int com_port)
+int open_port(char *dev)
 {
 	int fd;
-    char *dev[] = {"/dev/ttyS0"};
+    [] = {"/dev/ttyS0"};
 	if( (com_port < 0) || (com_port > MAX_COM_NUM) ) 
 	{
 		return -1;

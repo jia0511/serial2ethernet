@@ -45,7 +45,7 @@
 
 void SetSocketOpt(int sockfd);
 void KeepRoadConnect(void);
-int SendtoRoad(unsigned char *buf, int len);
+int SendtoServer(unsigned char *buf, int len);
 void CloseRoadfd(void);
 
 #endif

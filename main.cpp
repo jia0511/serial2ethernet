@@ -1,13 +1,18 @@
 #include "main.h"
 
+void initFunction()
+{
+	
+
+}
 
 //根据公里标输出路口方向
 void OutPutRoadDirection(void)
 {
 	while (1)
 	{
-		SendtoServer(Direction, 2);
-		sleep(1);
+		//SendtoServer(Direction, 2);
+		usleep(1000*100);
 	}
 }
 

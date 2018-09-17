@@ -44,7 +44,7 @@
 #define     RECV_ROADEND3     0xBB
 
 void SetSocketOpt(int sockfd);
-void KeepRoadConnect(void);
+int KeepRoadConnect(void);
 int SendtoServer(unsigned char *buf, int len);
 void CloseRoadfd(void);
 

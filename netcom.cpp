@@ -2,7 +2,6 @@
 
 int roadfd = -1;//路口句柄
 
-
 void SetSocketOpt(int sfd)
 {
 	int keepAlive = 1; // 开启keepalive属性
@@ -53,16 +52,18 @@ int ConnectRoad_TCP(char* ip,int port)
 }
 
 
-void KeepRoadConnect(void)
+int KeepRoadConnect()
 {
 	roadfd = ConnectRoad_TCP (roadmsg.roadip, roadmsg.roadport);
 	if(roadfd < 0)
 	{
 		printf("can't connect Road-server host!\n");
+		return -2;
 	}
 	else
 	{
 		printf("alreay connect Road-server host!\n");
+		return 0;
 	}
 }
 
@@ -72,7 +73,6 @@ int SendtoServer(unsigned char *buf, int len)
 	memset(sendbuff ,0,sizeof(sendbuff));
 
 	unsigned int  i = 0, crc = 0;
-	unsigned char crc_h = 0, crc_l = 0;
 	unsigned int state = 0;
 
 	/*采用纯非阻塞方式,描述符无变化,立即返回*/
@@ -82,7 +82,7 @@ int SendtoServer(unsigned char *buf, int len)
 
 	if(roadfd < 0)
     {
-		KeepRoadConnect();
+		state = KeepRoadConnect();
 	}
 	else
 	{
@@ -95,9 +95,11 @@ int SendtoServer(unsigned char *buf, int len)
 		{
 			case -1:
 				perror("send  select error");
+				state = -1;
 				break;
 			case 0:
 				perror("send time out!\n");
+				state = -1;
 				break;
 			default:
 				if(FD_ISSET(roadfd,&wfds)>0)
@@ -113,12 +115,7 @@ int SendtoServer(unsigned char *buf, int len)
 						sendbuff[3+i] = *buf;
 						buf++;
 					}
-					crc = CRCCalculate(&sendbuff[3], len);
-					crc_l =  (unsigned char)crc;
-					crc_h =  (unsigned char)(crc>>8);
 
-					sendbuff[3+len] = crc_l;
-					sendbuff[4+len] = crc_h;
 					sendbuff[5+len] = SEND_ROADEND1;
 					sendbuff[6+len] = SEND_ROADEND2;
 					sendbuff[7+len] = SEND_ROADEND3;
@@ -132,14 +129,14 @@ int SendtoServer(unsigned char *buf, int len)
 	 				}
 					else
 					{
-						state = state - 8;
+						state = state - 6;
 					}
 
 				}//end of 	if
 				break;
 		}//end of switch
-		return state;
 	}//end of else	
+	return state;
 }
 
 
