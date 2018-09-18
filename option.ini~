@@ -1,0 +1,5 @@
+;server对时
+[server]
+serip=192.168.2.200
+serport=1234
+
