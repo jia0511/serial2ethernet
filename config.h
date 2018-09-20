@@ -10,15 +10,16 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> 
 
 #define MAXLINE     1024
 #define MAXDATA     200
 
-struct config
+typedef struct NETSERVER
 {
-	char serverip[20];//配置IP
-	int  serverport;
-}config;
+	char ip[20];//配置IP
+	int port;
+}netServer;
 
 void ReadConfigData( void );
 

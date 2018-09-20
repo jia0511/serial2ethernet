@@ -37,7 +37,7 @@
 #define  BUFF_SIZE 1024
 #define  MAX_COM_NUM 7
 
-int open_port(char *dev);
+int open_port(const char *dev);
 int set_com_config(int fd,int baud_rate,int data_bits,char parity,int stop_bits);
 
 

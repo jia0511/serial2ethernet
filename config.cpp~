@@ -1,5 +1,7 @@
 #include "config.h"
 
+netServer net_server;
+
 //解析处理提取数据
 void extract_data(char *line, char *temp)
 {
@@ -30,22 +32,22 @@ void load_file(FILE *s_fp)
 			memset(temp, 0, sizeof(temp));
 			extract_data(line, temp);
 			len = strlen(temp);
-			strncpy(config.serverip, temp, len - 2); //减去"/n","/0"
+			strncpy(net_server.ip, temp, len - 2); //减去"/n","/0"
 		}
 		if (strstr(line, "serport") != NULL)
 		{
 			memset(temp, 0, sizeof(temp));
 			extract_data(line, temp);
-			config.serverport = atoi(temp);
+			net_server.port = atoi(temp);
 		}
 	} //end of while
-
 }
+
 //调试信息打印
 void debug_config_print(void)
 {
-	printf("serverip : %d\n", config.carid);
-	printf("serverport : %d\n", config.device);
+	printf("netServerip : %d\n", net_server.ip);
+	printf("netServerport : %d\n", net_server.port);
 }
 
 //打开配置文件

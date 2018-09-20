@@ -1,4 +1,7 @@
 #include "netcom.h"
+#include "config.h"
+
+extern netServer net_server;
 
 int roadfd = -1;//路口句柄
 
@@ -52,9 +55,9 @@ int ConnectRoad_TCP(char* ip,int port)
 }
 
 
-int KeepRoadConnect(void)
+int KeepRoadConnect()
 {
-	roadfd = ConnectRoad_TCP (roadmsg.roadip, roadmsg.roadport);
+	roadfd = ConnectRoad_TCP (net_server.ip, net_server.port);
 	if(roadfd < 0)
 	{
 		printf("can't connect Road-server host!\n");
@@ -106,19 +109,17 @@ int SendtoServer(unsigned char *buf, int len)
 				{
 					FD_CLR(roadfd, &wfds);
 					/*加入报头报尾校验和*/
-					sendbuff[0] = SEND_ROADSOH1;
-					sendbuff[1] = SEND_ROADSOH2;
-					sendbuff[2] = SEND_ROADSOH3;
-	
+					sendbuff[0] = SEND_SOH1;
+					sendbuff[1] = SEND_SOH2;
+					sendbuff[2] = SEND_SOH3;
+					sendbuff[3] = SEND_SOH4;
 					for(i=0;i<len;i++)
 					{
-						sendbuff[3+i] = *buf;
+						sendbuff[4+i] = *buf;
 						buf++;
 					}
 
-					sendbuff[5+len] = SEND_ROADEND1;
-					sendbuff[6+len] = SEND_ROADEND2;
-					sendbuff[7+len] = SEND_ROADEND3;
+					sendbuff[5+len] = SEND_END1;
 					//采用TCP模式发送
 					state = send(roadfd, sendbuff,8+len,0);
 	 				if(state == -1 && errno != EINTR)//如果不为中断错误 
@@ -131,7 +132,6 @@ int SendtoServer(unsigned char *buf, int len)
 					{
 						state = state - 6;
 					}
-
 				}//end of 	if
 				break;
 		}//end of switch

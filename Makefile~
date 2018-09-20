@@ -14,7 +14,7 @@
  # 可执行文件名
 EXECUTABLE := test   
  # 静态库目录
-LIBDIR:=   
+LIBDIR:=  /lib/x86_64-linux-gnu/   
  # 动态库文件名
 LIBS := 
  # 头文件目录

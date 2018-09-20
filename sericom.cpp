@@ -1,7 +1,7 @@
 #include "Sericom.h"
 
 
-int open_port(char *dev)
+int open_port(const char *dev)
 {
 	int fd;
 	if( NULL == dev ) 

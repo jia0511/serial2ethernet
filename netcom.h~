@@ -15,6 +15,8 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <pthread.h>
+#include <sys/epoll.h>
+#include <arpa/inet.h>
 
 #define     RECV_LENGTH      1024        //接收数据缓冲区长度
 #define     SEND_LENGTH      1024         //发送缓冲区长度
@@ -28,21 +30,15 @@
 #define 	MAX_COUNT		 5
 
 //////////发送路口数据报头/////////
-#define     SEND_ROADSOH1     0xEE
-#define     SEND_ROADSOH2     0xEE
-#define     SEND_ROADSOH3     0x7B
-#define     SEND_ROADEND1     0x7C
-#define     SEND_ROADEND2     0xDD
-#define     SEND_ROADEND3     0xDD
+#define     SEND_SOH1     0xEE
+#define     SEND_SOH2     0xEE
+#define     SEND_SOH3     0xEE
+#define     SEND_SOH4     0xFE
 
-/////////接收路口数据报头/////////
-#define     RECV_ROADSOH1     0xAC
-#define     RECV_ROADSOH2     0xAC
-#define     RECV_ROADSOH3     0x6E
-#define     RECV_ROADEND1     0x7D
-#define     RECV_ROADEND2     0xBB
-#define     RECV_ROADEND3     0xBB
+#define     SEND_END1     0xFE
 
+
+int ConnectRoad_TCP(char* ip,int port);
 void SetSocketOpt(int sockfd);
 int KeepRoadConnect(void);
 int SendtoServer(unsigned char *buf, int len);
