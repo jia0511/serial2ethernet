@@ -29,14 +29,25 @@
 #define		PARITY		'N'
 #define		STOPBITS	1
 #define   MAX_SEND_SIZE  134
+
+#define  UCHAR unsigned char 
 using namespace std;
 
 struct COM_T
 {
     int fd;		
     int length;			
-    char data[MAX_SEND_SIZE];	
+    UCHAR data[MAX_SEND_SIZE];	
 }com1, com2;
 
 
+struct date
+{
+	unsigned char  year;
+	unsigned char  mon;
+	unsigned char  day;
+	unsigned char  hour;
+	unsigned char  min;
+	unsigned char  sec;
+}nowTime;
 #endif /* MAIN_H_ */

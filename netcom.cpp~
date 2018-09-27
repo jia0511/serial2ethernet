@@ -75,7 +75,7 @@ int SendtoServer(unsigned char *buf, int len)
 	unsigned char sendbuff[SEND_LENGTH];
 	memset(sendbuff ,0,sizeof(sendbuff));
 
-	unsigned int  i = 0, crc = 0;
+	unsigned int  i = 0;
 	unsigned int state = 0;
 
 	/*采用纯非阻塞方式,描述符无变化,立即返回*/
@@ -121,7 +121,7 @@ int SendtoServer(unsigned char *buf, int len)
 
 					sendbuff[5+len] = SEND_END1;
 					//采用TCP模式发送
-					state = send(roadfd, sendbuff,8+len,0);
+					state = send(roadfd, sendbuff,5+len,0);
 	 				if(state == -1 && errno != EINTR)//如果不为中断错误 
 					{	
 	 					printf("send error,signal isn't interrupt!\n");

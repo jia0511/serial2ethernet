@@ -22,7 +22,6 @@ void extract_data(char *line, char *temp)
 //配置读取内容        
 void load_file(FILE *s_fp)
 {
-
 	char line[MAXLINE], temp[MAXDATA];
 	int len = 0;
 	while (fgets(line, MAXLINE, s_fp) != NULL)
@@ -66,3 +65,8 @@ void ReadConfigData(void)
 	debug_config_print();
 	printf("[+] done.\n\n");
 }
+
+
+
+
+

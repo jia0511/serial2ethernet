@@ -22,7 +22,6 @@ void extract_data(char *line, char *temp)
 //配置读取内容        
 void load_file(FILE *s_fp)
 {
-
 	char line[MAXLINE], temp[MAXDATA];
 	int len = 0;
 	while (fgets(line, MAXLINE, s_fp) != NULL)
@@ -46,7 +45,7 @@ void load_file(FILE *s_fp)
 //调试信息打印
 void debug_config_print(void)
 {
-	printf("netServerip : %d\n", net_server.ip);
+	printf("netServerip : %s\n", net_server.ip);
 	printf("netServerport : %d\n", net_server.port);
 }
 
@@ -66,3 +65,8 @@ void ReadConfigData(void)
 	debug_config_print();
 	printf("[+] done.\n\n");
 }
+
+
+
+
+

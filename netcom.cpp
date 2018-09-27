@@ -72,10 +72,15 @@ int KeepRoadConnect()
 
 int SendtoServer(unsigned char *buf, int len)
 {
+
+	if(len == 0) {
+		printf("len is 0\n");
+		return -1;
+	}
 	unsigned char sendbuff[SEND_LENGTH];
 	memset(sendbuff ,0,sizeof(sendbuff));
 
-	unsigned int  i = 0, crc = 0;
+	unsigned int  i = 0;
 	unsigned int state = 0;
 
 	/*采用纯非阻塞方式,描述符无变化,立即返回*/
